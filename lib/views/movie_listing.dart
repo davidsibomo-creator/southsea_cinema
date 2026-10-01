@@ -11,6 +11,7 @@ class MovieListing extends StatefulWidget {
 
 class _MovieListingState extends State<MovieListing> {
   int _ticketQuantity = 1;
+  String? _orderFeedback;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +78,25 @@ class _MovieListingState extends State<MovieListing> {
                 ),
               ],
             ),
+            const SizedBox(height: 24),
+            FilledButton.icon(
+              onPressed: () {
+                setState(() {
+                  final ticketLabel = _ticketQuantity == 1 ? 'ticket' : 'tickets';
+                  _orderFeedback =
+                      '$_ticketQuantity $ticketLabel added to your order.';
+                });
+              },
+              icon: const Icon(Icons.add_shopping_cart),
+              label: const Text('Add to order'),
+            ),
+            if (_orderFeedback != null) ...[
+              const SizedBox(height: 8),
+              Text(
+                _orderFeedback!,
+                style: const TextStyle(color: cinemaBrandLight),
+              ),
+            ],
           ],
         ),
       ),
