@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 
-class MovieListing extends StatelessWidget {
+class MovieListing extends StatefulWidget {
   const MovieListing({super.key});
+
+  @override
+  State<MovieListing> createState() => _MovieListingState();
+}
+
+class _MovieListingState extends State<MovieListing> {
+  int _ticketQuantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +41,25 @@ class MovieListing extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                ),
+                DropdownMenu<int>(
+                  width: 132,
+                  label: const Text('Tickets'),
+                  initialSelection: _ticketQuantity,
+                  dropdownMenuEntries: List.generate(
+                    5,
+                    (index) => DropdownMenuEntry<int>(
+                      value: index + 1,
+                      label: '${index + 1}',
+                    ),
+                  ),
+                  onSelected: (int? value) {
+                    if (value != null) {
+                      setState(() {
+                        _ticketQuantity = value;
+                      });
+                    }
+                  },
                 ),
               ],
             ),
