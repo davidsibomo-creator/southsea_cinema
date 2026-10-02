@@ -15,7 +15,22 @@ class MovieListing extends StatelessWidget {
         elevation: 0,
       ),
       drawer: const NavDrawer(),
-      body: const SizedBox.shrink(),
+      body: Container(
+        padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
+        color: cinemaBackground,
+        child: Column(
+          children: [
+            Text(
+              'SINNERS (2025)',
+              style: TextStyle(color: cinemaFontWhite, fontSize: 24),
+            ),
+            Text(
+              'SINNERS (2025)',
+              style: TextStyle(color: cinemaFontWhite, fontSize: 24),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
