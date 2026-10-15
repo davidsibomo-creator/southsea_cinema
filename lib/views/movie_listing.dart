@@ -24,85 +24,18 @@ class _MovieListingState extends State<MovieListing> {
       ),
       drawer: const NavDrawer(),
       body: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        color: cinemaSurface,
+        padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
+        color: cinemaBackground,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              children: [
-                const Expanded(
-                  child: Text(
-                    'Sinners',
-                    style: TextStyle(
-                      color: cinemaFontWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+            Text(
+              'SINNERS (2025)',
+              style: TextStyle(color: cinemaFontWhite, fontSize: 24),
             ),
-            const SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(Icons.movie_outlined, color: cinemaBrandLight, size: 18),
-                const SizedBox(width: 8),
-                const Expanded(
-                  child: Text(
-                    'Twin brothers return to their hometown to start their lives over, where they encounter an evil presence that\'s been waiting to welcome them back.',
-                    style: TextStyle(color: cinemaFontMuted),
-                  ),
-                ),
-              ],
+            Text(
+              'SINNERS (2025)',
+              style: TextStyle(color: cinemaFontWhite, fontSize: 24),
             ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                DropdownMenu<int>(
-                  width: 132,
-                  label: const Text('Tickets', style: TextStyle(color: cinemaFontWhite)),
-                  initialSelection: _ticketQuantity,
-                  dropdownMenuEntries: List.generate(
-                    5,
-                    (index) => DropdownMenuEntry<int>(
-                      value: index + 1,
-                      label: '${index + 1}',
-                    ),
-                  ),
-                  onSelected: (int? value) {
-                    if (value != null) {
-                      setState(() {
-                        _ticketQuantity = value;
-                      });
-                    }
-                  },
-                ),
-                const SizedBox(width: 12),
-                FilledButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      final ticketLabel =
-                          _ticketQuantity == 1 ? 'ticket' : 'tickets';
-                      _orderFeedback =
-                          '$_ticketQuantity $ticketLabel added to your order.';
-                    });
-                  },
-                  icon: const Icon(Icons.add_shopping_cart),
-                  label: const Text('Add to order'),
-                ),
-              ],
-            ),
-            if (_orderFeedback != null) ...[
-              const SizedBox(height: 8),
-              Text(
-                _orderFeedback!,
-                style: const TextStyle(color: cinemaBrandLight),
-              ),
-            ],
           ],
         ),
       ),
