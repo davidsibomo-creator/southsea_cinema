@@ -11,7 +11,7 @@ class MovieListing extends StatefulWidget {
 
 class _MovieListingState extends State<MovieListing> {
   int _ticketQuantity = 1;
-  String? _orderFeedback;
+  String _bookingMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,7 @@ class _MovieListingState extends State<MovieListing> {
       ),
       drawer: const NavDrawer(),
       body: Container(
+        width: double.infinity,
         padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
         color: cinemaBackground,
         child: Column(
@@ -31,19 +32,35 @@ class _MovieListingState extends State<MovieListing> {
           children: [
             Text(
               'SINNERS (2025)',
-              style: TextStyle(color: cinemaFontWhite, fontSize: 24, fontWeight: FontWeight.bold,),
+              style: TextStyle(
+                color: cinemaFontWhite,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
+            Text(
+              '137 mins  |  Rated 15',
+              style: TextStyle(color: cinemaFontWhite, fontSize: 16),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Trying to leave their troubled lives behind, twin brothers return '
+              'to their hometown to start again, only to discover that a greater '
+              'evil is waiting to welcome them back.',
+              style: TextStyle(color: cinemaFontWhite, fontSize: 16),
+            ),
+            const SizedBox(height: 10),
             Text(
               'Southsea Cinema Room',
               style: TextStyle(color: cinemaFontWhite, fontSize: 16),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
               'Note that Discounts / Membership Benefits will be applied once you have selected your tickets',
               style: TextStyle(color: cinemaFontWhite, fontSize: 16),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
               'Select Quantities (Up to 5 in total)',
               style: TextStyle(color: cinemaFontWhite, fontSize: 16),
@@ -60,34 +77,38 @@ class _MovieListingState extends State<MovieListing> {
             const SizedBox(height: 10),
             Row(
               children: [
-                Container(
+                DropdownMenu<int>(
                   width: 100,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: cinemaSurface,
-                    border: Border.all(color: cinemaBrand, width: 1.5),
+                  initialSelection: _ticketQuantity,
+                  textStyle: TextStyle(color: cinemaFontWhite, fontSize: 16),
+                  menuStyle: MenuStyle(
+                    backgroundColor: WidgetStatePropertyAll(cinemaSurface),
                   ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<int>(
-                      isExpanded: true,
-                      value: _ticketQuantity,
-                      dropdownColor: cinemaSurface,
-                      iconEnabledColor: cinemaFontWhite,
-                      style: TextStyle(color: cinemaFontWhite, fontSize: 16),
-                      items: List.generate(5, (index) {
-                        final quantity = index + 1;
-                        return DropdownMenuItem<int>(
-                          value: quantity,
-                          child: Text('$quantity'),
-                        );
-                      }),
-                      onChanged: (newValue) {
-                        setState(() {
-                          _ticketQuantity = newValue!;
-                        });
-                      },
+                  inputDecorationTheme: InputDecorationTheme(
+                    filled: true,
+                    fillColor: cinemaSurface,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: cinemaBrand, width: 1.5),
                     ),
                   ),
+                  onSelected: (int? value) {
+                    if (value != null) {
+                      setState(() {
+                        _ticketQuantity = value;
+                        print('Tickets selected: $_ticketQuantity');
+                      });
+                    }
+                  },
+                  dropdownMenuEntries: List.generate(5, (index) {
+                    final quantity = index + 1;
+                    return DropdownMenuEntry<int>(
+                      value: quantity,
+                      label: '$quantity',
+                      style: MenuItemButton.styleFrom(
+                        foregroundColor: cinemaFontWhite,
+                      ),
+                    );
+                  }),
                 ),
                 const SizedBox(width: 12),
                 Text(
@@ -96,30 +117,35 @@ class _MovieListingState extends State<MovieListing> {
                 ),
               ],
             ),
+            const SizedBox(height: 10),
+            Text(
+              'Tickets selected: $_ticketQuantity',
+              style: TextStyle(color: cinemaFontWhite, fontSize: 16),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _orderFeedback =
-                      'You have ordered $_ticketQuantity Adult ticket(s) for SINNERS (2025).';
+                  _bookingMessage =
+                      'Added $_ticketQuantity tickets to the order';
                 });
+                print(_bookingMessage);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: cinemaBrand,
+                foregroundColor: cinemaFontWhite,
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
               ),
-              child: Text(
-                'Add to Order',
-                style: TextStyle(color: cinemaFontWhite, fontSize: 16),
-              ),
+              child: const Text('Add to order', style: TextStyle(fontSize: 16)),
             ),
-            if (_orderFeedback != null) ...[
-              const SizedBox(height: 20),
-              Text(
-                _orderFeedback!,
-                style: TextStyle(color: cinemaFontWhite, fontSize: 16),
-              ),
-            ],
+            const SizedBox(height: 20),
+            Text(
+              _bookingMessage,
+              style: TextStyle(color: cinemaFontWhite, fontSize: 16),
+            ),
           ],
         ),
       ),
