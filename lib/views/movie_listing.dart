@@ -35,7 +35,7 @@ class _MovieListingState extends State<MovieListing> {
               children: [
                 const Expanded(
                   child: Text(
-                    'The Grand Budapest Hotel',
+                    'Sinners',
                     style: TextStyle(
                       color: cinemaFontWhite,
                       fontSize: 20,
@@ -43,9 +43,28 @@ class _MovieListingState extends State<MovieListing> {
                     ),
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(Icons.movie_outlined, color: cinemaBrandLight, size: 18),
+                const SizedBox(width: 8),
+                const Expanded(
+                  child: Text(
+                    'Twin brothers return to their hometown to start their lives over, where they encounter an evil presence that\'s been waiting to welcome them back.',
+                    style: TextStyle(color: cinemaFontMuted),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
                 DropdownMenu<int>(
                   width: 132,
-                  label: const Text('Tickets'),
+                  label: const Text('Tickets', style: TextStyle(color: cinemaFontWhite)),
                   initialSelection: _ticketQuantity,
                   dropdownMenuEntries: List.generate(
                     5,
@@ -62,33 +81,20 @@ class _MovieListingState extends State<MovieListing> {
                     }
                   },
                 ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(Icons.movie_outlined, color: cinemaBrandLight, size: 18),
-                const SizedBox(width: 8),
-                const Expanded(
-                  child: Text(
-                    'A hotel concierge and his young protégé become caught up in a caper involving a stolen painting.',
-                    style: TextStyle(color: cinemaFontMuted),
-                  ),
+                const SizedBox(width: 12),
+                FilledButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      final ticketLabel =
+                          _ticketQuantity == 1 ? 'ticket' : 'tickets';
+                      _orderFeedback =
+                          '$_ticketQuantity $ticketLabel added to your order.';
+                    });
+                  },
+                  icon: const Icon(Icons.add_shopping_cart),
+                  label: const Text('Add to order'),
                 ),
               ],
-            ),
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              onPressed: () {
-                setState(() {
-                  final ticketLabel = _ticketQuantity == 1 ? 'ticket' : 'tickets';
-                  _orderFeedback =
-                      '$_ticketQuantity $ticketLabel added to your order.';
-                });
-              },
-              icon: const Icon(Icons.add_shopping_cart),
-              label: const Text('Add to order'),
             ),
             if (_orderFeedback != null) ...[
               const SizedBox(height: 8),
