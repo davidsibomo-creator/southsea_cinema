@@ -50,6 +50,11 @@ class MovieCard extends StatelessWidget {
                         movie.synopsis,
                         style: const TextStyle(color: cinemaFontWhite),
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Price: ${movie.formattedPrice}',
+                        style: const TextStyle(color: cinemaFontWhite),
+                      ),
                     ],
                   ),
                 ),
