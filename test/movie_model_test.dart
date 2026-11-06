@@ -21,4 +21,18 @@ void main() {
       expect(movie.formattedPrice, '£5.00');
     });
   });
+   test('format price returns pound sign and value rounded to two decimal places but with whole pound value', () {
+      const movie = Movie(
+        id: 'Gravity',
+        title: 'Gravity Falls',
+        synopsis: 'A Crazy town',
+        agerating: 'PG',
+        runtime: '1hr 30min',
+        screentime: '7:00pm',
+        ticketprice: 5,
+        posterimage: 'assets/images/bleachposter.jpg',
+      );
+
+      expect(movie.formattedPrice, '£5.00');
+    });
 }
