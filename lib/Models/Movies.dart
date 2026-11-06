@@ -8,7 +8,7 @@ class Movie {
   final double ticketprice;
   final String posterimage;
 
-Movie({
+const Movie({
     required this.id,
     required this.title,
     required this.synopsis,
